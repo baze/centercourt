@@ -15,6 +15,8 @@ class CourtTableSeeder extends Seeder {
 	{
 		Model::unguard();
 
+		DB::table( 'courts' )->truncate();
+
 		Court::create( [
 			'name' => 'Halle 1',
 			'type' => 'indoor'
