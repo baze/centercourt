@@ -43,7 +43,10 @@ class ReservationsApiController extends Controller {
 
 		if ($reservation->recurring) {
 
-			$reservations = ReservationController::calculateEventsForReservation( $reservation, new Collection() );
+			$reservations = new Collection();
+			$reservations->add( $reservation );
+
+			$reservations = Reservation::calculate( $reservations );
 
 			return response()->json( $reservations );
 		}
