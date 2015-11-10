@@ -1,5 +1,5 @@
 <!-- contextmenu -->
-<div contextmenu="meta.contextmenu" class="dropdown contextmenu">
+<div data-contextmenu="meta.contextmenu" class="dropdown contextmenu">
     <ul class="dropdown-menu" role="menu">
         <li class="dropdown-header">
             @{{ meta.contextmenu.item }}

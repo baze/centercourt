@@ -1,6 +1,9 @@
 @import "bootstrap-datepicker3.min.css";
 @import "../bower_components/flexslider/flexslider.css";
 
+$fa-font-path: "//netdna.bootstrapcdn.com/font-awesome/4.4.0/fonts" !default;
+@import "../../../public/bower_components/font-awesome/scss/font-awesome";
+
 @import "../../../node_modules/bootstrap-sass/assets/stylesheets/bootstrap";
 
 @import "colors";

@@ -2,6 +2,8 @@
      data-ng-controller="TableController"
      data-ng-init="init()">
 
+    @include('_partials._reservation._context-menu')
+
     <div class="col-md-8">
 
         <table class="courts-table table table-bordered">
@@ -18,7 +20,8 @@
                                    value="{{ $court->id }}"
                                    id="court_id_{{ $court->id }}"
                                    data-ng-model="reservation.courtId"
-                                   data-ng-click="drawTempReservation()"/>
+                                   data-ng-click="drawTempReservation()"
+                            />
                         @endif
                     </th>
                 @endforeach
@@ -42,10 +45,10 @@
                             <div class="reservationWrapper">
                                 <span
                                 @if(Auth::check())
-                                    data-ng-mouseover="showReservationInfoPopover($event)"
+                                    data-ng-mouseover="showReservationInfoPopover($event, '{{ url('delete') }}', '{{ csrf_token() }}')"
                                     data-container="body"
                                     data-placement="right"
-                                    data-trigger="hover"
+                                    data-trigger="click"
                                     data-content=""
                                     data-title="Reservierungs-Daten"
                                     data-html="true"

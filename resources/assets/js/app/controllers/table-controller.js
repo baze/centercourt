@@ -31,7 +31,7 @@ module.exports = function ($scope, $controller, $window, $filter) {
         elems.addClass(myClass);
     };
 
-    $scope.getPopoverContent = function (reservation) {
+    $scope.getPopoverContent = function (reservation, action, csrf_token) {
         var content = "<dl>";
         content += "<dt>Name</dt><dd>" + reservation.first_name + " " + reservation.last_name + "</dd>";
         content += "<dt>Start</dt><dd>" + $filter('formatTime')(reservation.start_time) + "</dd>";
@@ -63,12 +63,23 @@ module.exports = function ($scope, $controller, $window, $filter) {
             "ID: " + reservation.reservation_number +
             "</small>";
 
+        content += "<hr>";
+
+        action = action + "/" + reservation.id;
+
+        content += "<form action='" + action + "' method='post'>";
+        content += '<input type="hidden" name="_token" value="'+ csrf_token + '">';
+        content += "<input type='submit' value='Löschen' class='btn btn-danger btn-xs btn-block'>";
+        content += "</form>";
+
         return content;
     };
 
-    $scope.showReservationInfoPopover = function ($event) {
+    $scope.showReservationInfoPopover = function ($event, action, csrf_token) {
 
         if (!$scope.mouseIsCurrentlyClicked) {
+
+            $('.popover').popover('hide');
 
             var reservationId = $($event.target).attr('data-reservation');
 
@@ -85,7 +96,7 @@ module.exports = function ($scope, $controller, $window, $filter) {
 
                 var reservation = $scope.filterReservations($window.myApp.reservations, filter)[0];
 
-                var content = $scope.getPopoverContent(reservation);
+                var content = $scope.getPopoverContent(reservation, action, csrf_token);
 
                 var popover = $($event.target).attr('data-content', content).data('bs.popover');
                 popover.setContent();

@@ -617,37 +617,4 @@ module.exports = function($scope, $window, $filter, $http) {
 
     };
 
-    $scope.delete = function ($event) {
-
-        alert("click");
-
-        /*if (!$scope.mouseIsCurrentlyClicked) {
-
-            var reservationId = $($event.target).attr('data-reservation');
-
-            $('span[data-reservation]').removeAttr('data-highlight');
-
-            if (reservationId) {
-
-                $('span[data-reservation=' + reservationId + ']').attr('data-highlight', true);
-
-                var filter = {
-                    date: moment($scope.reservation.date).format('YYYY-MM-DD'),
-                    id: reservationId
-                };
-
-                var reservation = $scope.filterReservations($window.myApp.reservations, filter)[0];
-
-                var content = $scope.getPopoverContent(reservation);
-
-                var popover = $($event.target).attr('data-content', content).data('bs.popover');
-                popover.setContent();
-                popover.$tip.addClass(popover.options.placement);
-
-            }
-
-        }*/
-
-    };
-
 };

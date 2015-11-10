@@ -18,6 +18,7 @@ Route::group( [ 'middleware' => 'auth' ], function () {
 		return redirect( '/' );
 	} );
 	Route::resource( 'holidays', 'HolidaysController', [ 'only' => [ 'index', 'store', 'destroy' ] ] );
+	Route::post( 'delete/{id}', 'ReservationsController@destroy' );
 } );
 
 
@@ -25,7 +26,7 @@ Route::group( [ 'prefix' => 'api' ], function () {
 
 	Route::group( [ 'prefix' => 'v1' ], function () {
 
-		Route::resource( 'reservations', 'ReservationsApiController', [ 'only' => [ 'index', 'store', 'destroy' ] ] );
+		Route::resource( 'reservations', 'ReservationsApiController', [ 'only' => [ 'index', 'store' ] ] );
 
 	} );
 

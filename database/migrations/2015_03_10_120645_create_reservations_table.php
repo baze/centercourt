@@ -29,7 +29,7 @@ class CreateReservationsTable extends Migration {
 			$table->string('reservation_number')->nullable()->unique();
 
 			$table->string('first_name');
-			$table->string('last_name');
+			$table->string('last_name')->nullable();
 			$table->string('email')->nullable();
 			$table->string('phone')->nullable();
 

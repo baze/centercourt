@@ -2,6 +2,7 @@
 
 use App\Holiday;
 use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Validator;
 
 class HolidaysController extends Controller {
 
@@ -35,7 +36,20 @@ class HolidaysController extends Controller {
 
 	public function store() {
 
-		Holiday::create( Input::all() );
+		$input = Input::all();
+
+		$validator = Validator::make( $input, [
+				'start_date' => 'required',
+				'end_date'  => 'required',
+		] );
+
+		if ( $validator->fails() ) {
+			return redirect()->back()
+					->withErrors( $validator )
+					->withInput();
+		}
+
+		Holiday::create( $input );
 
 		return redirect()->back();
 	}
