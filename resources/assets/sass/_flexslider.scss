@@ -1,0 +1,18 @@
+.flex-control-paging li a {
+  width: 6px !important;
+  height: 6px !important;
+  background: #fff !important;
+  /*box-shadow: rgba(0, 0, 0, 0.4) 0px 0px 3px 0px inset !important;*/
+}
+
+.flex-control-nav {
+  bottom: -30px !important;
+}
+
+.flex-control-paging li a.flex-active {
+  background: #95D3DA !important;
+}
+
+.flexslider {
+  margin: 0 0 30px;
+}

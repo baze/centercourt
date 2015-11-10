@@ -1,0 +1,10 @@
+.btn-primary {
+  background-color: $primary-color !important;
+  border-color: darken($primary-color, 20) !important;
+  text-shadow: 1px 1px 0px darken($primary-color, 30);
+
+  font-family: $primary-font;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+}

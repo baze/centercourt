@@ -1,0 +1,14 @@
+$primary-color: #95D3DA;
+
+$white: #fff;
+$black: #000;
+
+$color-reservation: $primary-color;
+$color-reservation-temp: lighten($color-reservation, 20);
+$color-reservation-invalid: adjust-hue($primary-color, 170%);
+$color-court-outdoor: #f5f5f5;
+$color-reservation-recurring: adjust-hue($primary-color, 80%);
+$color-reservation-recurring-privat: $color-reservation-recurring;
+$color-reservation-recurring-verein: adjust-hue($primary-color, 20%);
+$color-reservation-recurring-dutzendkarte: saturate(adjust-hue($primary-color, 260%), 10);
+$color-holidays: saturate(adjust-hue($primary-color, 200%), 40);

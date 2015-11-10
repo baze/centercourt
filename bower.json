@@ -1,0 +1,17 @@
+{
+  "name": "CenterCourt Reservation-App",
+  "version": "0.1.0",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "devDependencies": {},
+  "dependencies": {
+    "breakpoint-sass": "~2.5.0",
+    "normalize-scss": "~3.0.1",
+    "flexslider": "*"
+  }
+}

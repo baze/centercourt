@@ -1,0 +1,46 @@
+.court-legend {
+  dt {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    border: 1px solid #dddddd;
+
+    &.court-legend-indoor {
+      background-color: white;
+    }
+
+    &.court-legend-outdoor {
+      background-color: $color-court-outdoor;
+    }
+
+    &.court-legend-reservation {
+      background-color: $color-reservation;
+    }
+
+    &.court-legend-recurring {
+      background-color: $color-reservation-recurring;
+
+      &.court-legend-recurring-privat {
+        background-color: $color-reservation-recurring-privat;
+      }
+
+      &.court-legend-recurring-verein {
+        background-color: $color-reservation-recurring-verein;
+      }
+
+      &.court-legend-recurring-dutzendkarte {
+        background-color: $color-reservation-recurring-dutzendkarte;
+      }
+
+    }
+
+    &.court-legend-holidays {
+      background-color: $color-holidays;
+    }
+  }
+
+  dd {
+    display: inline-block;
+    margin-right: 1em;
+  }
+}

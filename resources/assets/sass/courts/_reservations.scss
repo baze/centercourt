@@ -1,0 +1,74 @@
+.reservationWrapper {
+  position: relative;
+
+  span {
+    position: absolute;
+    display: block;
+    left: 0;
+    top: 0;
+    height: 100%;
+    width: 100%;
+
+    //transition: all 200ms;
+    transform: scale(1);
+
+    &[data-highlight] {
+      transform: scale(1.1);
+      z-index: 9999;
+      filter: brightness(110%) grayscale(0.1);
+    }
+
+    &.hasReservation {
+      background-color: $color-reservation;
+
+      &.recurringReservation {
+        background-color: $color-reservation-recurring;
+
+        &.recurringReservation-privat {
+          background-color: $color-reservation-recurring-privat;
+        }
+
+        &.recurringReservation-verein {
+          background-color: $color-reservation-recurring-verein;
+        }
+
+        &.recurringReservation-dutzendkarte {
+          background-color: $color-reservation-recurring-dutzendkarte;
+        }
+      }
+    }
+
+    &.tempReservation {
+      background-color: lighten($color-reservation, 20);
+
+      &.hasReservation {
+        background-color: $color-reservation-invalid !important;
+      }
+
+
+
+      &.recurringTempReservation {
+        background-color: lighten($color-reservation-recurring, 20);
+
+        &.recurringTempReservation-privat {
+          background-color: lighten($color-reservation-recurring-privat, 20);
+        }
+
+        &.recurringTempReservation-verein {
+          background-color: lighten($color-reservation-recurring-verein, 20);
+        }
+
+        &.recurringTempReservation-dutzendkarte {
+          background-color: lighten($color-reservation-recurring-dutzendkarte, 20);
+        }
+      }
+
+      &.reservationIsInvalid,
+      &.reservationIsInvalid.recurringTempReservation {
+        background-color: lighten($color-reservation-invalid, 10);
+      }
+
+    }
+
+  }
+}

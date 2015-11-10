@@ -1,0 +1,106 @@
+{
+  "name": "CenterCourtReservations",
+  "version": "0.1.0",
+  "description": "",
+  "repository": {},
+  "main": "./public/js/main.js",
+  "license": "UNLICENSED",
+  "browser": {
+    "bootstrap": "./node_modules/bootstrap-sass/assets/javascripts/bootstrap.js",
+    "mediaelement": "./public/bower_components/mediaelement/build/mediaelement-and-player.js",
+    "bootstrap-datepicker": "./node_modules/bootstrap-datepicker/dist/js/bootstrap-datepicker.js",
+    "bootstrap-datetimejs": "./public/bower_components/eonasdan-bootstrap-datetimepicker/build/js/bootstrap-datetimepicker.min.js",
+    "flexslider": "./public/bower_components/flexslider/jquery.flexslider-min.js"
+  },
+  "browserify": {
+    "transform": [
+      "browserify-shim"
+    ]
+  },
+  "browserify-shim": {
+    "bootstrap": {
+      "exports": "bootstrap",
+      "depends": [
+        "jquery:jQuery"
+      ]
+    },
+    "moment": {
+      "exports": "moment"
+    },
+    "moment-range": {
+      "depends": [
+        "moment"
+      ]
+    },
+    "bootstrap-datetimejs": {
+      "depends": [
+        "jquery:jQuery",
+        "bootstrap",
+        "moment"
+      ]
+    },
+    "bootstrap-datepicker": {
+      "depends": [
+        "jquery:jQuery"
+      ]
+    },
+    "mediaelement": {
+      "exports": "MediaElementPlayer",
+      "depends": [
+        "jquery:jQuery"
+      ]
+    },
+    "flexslider": {
+      "depends": [
+        "jquery:jQuery"
+      ]
+    },
+    "angular-hammer": {
+      "depends": [
+        "angular",
+        "hammerjs"
+      ]
+    }
+  },
+  "devDependencies": {
+    "browser-sync": "^2.5.2",
+    "browserify": "^12.0.1",
+    "browserify-shim": "^3.8.3",
+    "deamdify": "^0.1.1",
+    "debowerify": "^1.2.0",
+    "gulp": "^3.8.11",
+    "gulp-autoprefixer": "^3.1.0",
+    "gulp-changed": "^1.2.1",
+    "gulp-codeception": "^0.5.0",
+    "gulp-gzip": "1.2.0",
+    "gulp-if": "^2.0.0",
+    "gulp-imagemin": "^2.2.1",
+    "gulp-insert": "^0.5.0",
+    "gulp-minify-css": "^1.0.0",
+    "gulp-ng-annotate": "^1.1.0",
+    "gulp-ng-autobootstrap": "^0.2.0",
+    "gulp-ngmin": "^0.3.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-phpunit": "^0.9.1",
+    "gulp-rename": "^1.2.0",
+    "gulp-ruby-sass": "^2.0.5",
+    "gulp-streamify": "1.0.2",
+    "gulp-uglify": "^1.1.0",
+    "gulp-util": "^3.0.4",
+    "laravel-elixir": "*",
+    "pretty-hrtime": "^1.0.0",
+    "vinyl-source-stream": "^1.1.0",
+    "watchify": "^3.1.0"
+  },
+  "dependencies": {
+    "angular": "^1.3.15",
+    "angular-contextmenu": "^0.2.0",
+    "bootstrap-datepicker": "^1.4.0",
+    "bootstrap-sass": "^3.3.4",
+    "connect": "^3.3.5",
+    "font-awesome": "^4.3.0",
+    "jquery": "^2.1.3",
+    "mobile-detect": "^1.0.0",
+    "moment": "^2.9.0"
+  }
+}

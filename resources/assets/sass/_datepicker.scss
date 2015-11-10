@@ -1,0 +1,43 @@
+.datepicker {
+
+  width: 100%;
+
+  table {
+    font-size: 90% !important;
+    width: 100%;
+
+    tr td {
+
+      &.today {
+        background-color: lighten($primary-color, 20) !important;
+        color: $primary-color;
+
+        &:hover {
+          background-color: lighten($primary-color, 20) !important;
+        }
+      }
+
+      &.active {
+        background-color: $primary-color !important;
+        color: $white;
+
+        &:hover {
+          background-color: $primary-color !important;
+        }
+      }
+
+    }
+
+    th {
+      &.today,
+      &.datepicker-switch {
+        font-family: $primary-font;
+        font-weight: 400;
+        text-transform: uppercase;
+        letter-spacing: 2px;
+      }
+    }
+
+  }
+
+}

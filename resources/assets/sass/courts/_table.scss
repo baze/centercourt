@@ -1,0 +1,36 @@
+.courts-table {
+
+  font-size: 75%;
+
+  &, & * {
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -khtml-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+  }
+
+  .court-outdoor {
+    background: $color-court-outdoor;
+  }
+
+  th.holidays {
+    background-color: lighten($color-holidays, 15);
+  }
+
+  td.holidays {
+    background-color: lighten($color-holidays, 27.5);
+  }
+
+  td.court {
+    padding: 0 !important;
+    margin: 0 !important;
+    height: 35px;
+  }
+
+  .reservationWrapper {
+    height: 100%;
+  }
+
+}
