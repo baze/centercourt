@@ -415,6 +415,9 @@ module.exports = function($scope, $window, $filter, $http) {
             var date = undefined;
             var startDate = undefined;
 
+            var weeksToCheck = 52;
+            var monthsToCheck = 12;
+
             switch ($scope.reservation.recurringInterval) {
                 case RECURRING_INTERVAL_DAILY:
 
@@ -429,7 +432,7 @@ module.exports = function($scope, $window, $filter, $http) {
 
                         startDate = moment($scope.reservation.date);
 
-                        for (var j = 0; j < 52 / $scope.reservation.recurring_interval_weeks; j++) {
+                        for (var j = 0; j < weeksToCheck / $scope.reservation.recurring_interval_weeks; j++) {
 
                             date = startDate.add($scope.reservation.recurring_interval_weeks, 'weeks').format('YYYY-MM-DD');
 
@@ -443,7 +446,7 @@ module.exports = function($scope, $window, $filter, $http) {
 
                         startDate = moment($scope.reservation.date);
 
-                        for (var j = 52 / $scope.reservation.recurring_interval_weeks; j > 0; j--) {
+                        for (var j = weeksToCheck / $scope.reservation.recurring_interval_weeks; j > 0; j--) {
 
                             date = startDate.subtract($scope.reservation.recurring_interval_weeks, 'weeks').format('YYYY-MM-DD');
 
@@ -464,7 +467,7 @@ module.exports = function($scope, $window, $filter, $http) {
 
                         startDate = moment($scope.reservation.date);
 
-                        for (var j = 0; j < 12; j++) {
+                        for (var j = 0; j < monthsToCheck; j++) {
 
                             date = startDate.add(1, 'months').format('YYYY-MM-DD');
 
@@ -509,9 +512,8 @@ module.exports = function($scope, $window, $filter, $http) {
         }
 
         if (! $scope.conflict) {
-
             $scope.checkForConflictWithExistingReservationsForCurrentDay();
-            $scope.checkForConflictWithRecurringReservations();
+            //$scope.checkForConflictWithRecurringReservations();
         }
 
     };

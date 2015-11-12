@@ -7,7 +7,11 @@ class Holiday extends Model {
 
 	protected $fillable = [ 'start_date', 'end_date' ];
 
-	public static function calculate( $holidays ) {
+	public static function getAll() {
+		return static::calculate( static::all() );
+	}
+
+	private static function calculate( $holidays ) {
 
 		foreach ( $holidays as $holiday ) {
 			$endDate = $holiday->end_date;

@@ -33,7 +33,12 @@ module.exports = function ($scope, $controller, $window, $filter) {
 
     $scope.getPopoverContent = function (reservation, action, csrf_token) {
         var content = "<dl>";
-        content += "<dt>Name</dt><dd>" + reservation.first_name + " " + reservation.last_name + "</dd>";
+        content += "<dt>Name</dt><dd>" + reservation.first_name;
+
+        if (reservation.last_name) {
+            content += " " + reservation.last_name + "</dd>";
+        }
+
         content += "<dt>Start</dt><dd>" + $filter('formatTime')(reservation.start_time) + "</dd>";
         content += "<dt>Dauer</dt><dd>" + $filter('formatHours')(reservation.duration) + "</dd>";
         //content += "<dt>E-Mail</dt><dd>" + reservation.email + "</dd>";
@@ -67,7 +72,8 @@ module.exports = function ($scope, $controller, $window, $filter) {
 
         action = action + "/" + reservation.id;
 
-        content += "<form action='" + action + "' method='post'>";
+        content += "<form action='" + action + "' method='POST'>";
+        content += '<input name="_method" type="hidden" value="DELETE">';
         content += '<input type="hidden" name="_token" value="'+ csrf_token + '">';
         content += "<input type='submit' value='Löschen' class='btn btn-danger btn-xs btn-block'>";
         content += "</form>";

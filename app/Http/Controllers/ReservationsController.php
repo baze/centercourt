@@ -27,8 +27,8 @@ class ReservationsController extends Controller {
 	public function index(\Mobile_Detect $detect)
 	{
 		$courts = Court::all();
-		$reservations = Reservation::calculate( Reservation::all() );
-		$holidays = Holiday::calculate( Holiday::all() );
+		$reservations = Reservation::getAll();
+		$holidays = Holiday::getAll();
 
 		$minTime = 8;
 		$maxTime = 23;

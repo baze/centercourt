@@ -45,7 +45,7 @@
                             <div class="reservationWrapper">
                                 <span
                                 @if(Auth::check())
-                                    data-ng-mouseover="showReservationInfoPopover($event, '{{ url('delete') }}', '{{ csrf_token() }}')"
+                                    data-ng-mouseover="showReservationInfoPopover($event, '{{ url('reservations') }}', '{{ csrf_token() }}')"
                                     data-container="body"
                                     data-placement="right"
                                     data-trigger="click"

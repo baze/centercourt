@@ -3,21 +3,11 @@
 
         <div class="flexslider courts">
             <ul class="slides">
-                <li>
-                    <img src="{{ URL::asset('/img/court1.jpg') }}"/>
-                </li>
-                <li>
-                    <img src="{{ URL::asset('/img/court2.jpg') }}"/>
-                </li>
-                <li>
-                    <img src="{{ URL::asset('/img/court3.jpg') }}"/>
-                </li>
-                <li>
-                    <img src="{{ URL::asset('/img/court4.jpg') }}"/>
-                </li>
-                <li>
-                    <img src="{{ URL::asset('/img/court5.jpg') }}"/>
-                </li>
+                @foreach($courts as $court)
+                    <li>
+                        <img src="{{ URL::asset('/img/court'.$court->id.'.jpg') }}"/>
+                    </li>
+                @endforeach
             </ul>
         </div>
 

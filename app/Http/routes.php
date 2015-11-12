@@ -18,7 +18,7 @@ Route::group( [ 'middleware' => 'auth' ], function () {
 		return redirect( '/' );
 	} );
 	Route::resource( 'holidays', 'HolidaysController', [ 'only' => [ 'index', 'store', 'destroy' ] ] );
-	Route::post( 'delete/{id}', 'ReservationsController@destroy' );
+	Route::resource( 'reservations', 'ReservationsController', [ 'only' => [ 'destroy' ] ] );
 } );
 
 

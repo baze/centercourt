@@ -19,7 +19,11 @@ class Reservation extends Model {
 		} );
 	}
 
-	public static function nthOfWeekFromDate( $date ) {
+	public static function getAll() {
+		return static::calculate( static::all() );
+	}
+
+	private static function nthOfWeekFromDate( $date ) {
 
 		$weekDayOfDate = (int) $date->format( 'w' );
 
@@ -41,7 +45,7 @@ class Reservation extends Model {
 		return $nth;
 	}
 
-	public static function calculate( $reservations ) {
+	private static function calculate( $reservations ) {
 
 		foreach ( $reservations as $reservation ) {
 
