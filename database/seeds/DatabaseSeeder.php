@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder {
 
 		$this->call( 'CourtTableSeeder' );
 		$this->call( 'UserTableSeeder' );
-		$this->call( 'HolidayTableSeeder' );
-		$this->call( 'ReservationTableSeeder' );
+//		$this->call( 'HolidayTableSeeder' );
+//		$this->call( 'ReservationTableSeeder' );
 
 		DB::statement( 'SET FOREIGN_KEY_CHECKS=1;' );
 	}

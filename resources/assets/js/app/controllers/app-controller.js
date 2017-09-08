@@ -6,6 +6,8 @@ require('bootstrap');
 
 module.exports = function($scope, $window, $filter, $http) {
 
+    $scope.isAdmin = false;
+
     $scope.conflicts = {
         CONFLICT_RESERVATION_IN_PAST: 'Ihr Reservierungswunsch liegt in der Vergangenheit.',
         CONFLICT_RESERVATION_IN_FUTURE: 'Ihr Reservierungswunsch liegt zu weit in der Zukunft. Bitte wählen Sie ein Datum innerhalb des kommenden Monats.',
@@ -31,7 +33,10 @@ module.exports = function($scope, $window, $filter, $http) {
         phone: undefined
     };
 
-    $scope.reservation.email = $window.myApp.email;
+    $scope.reservationForDeletion = undefined;
+    $scope.reservationDeleteAction = '';
+
+    // $scope.reservation.email = $window.myApp.email;
     $scope.holidays = $window.myApp.holidays;
 
     $scope.conflict = false;
@@ -48,7 +53,7 @@ module.exports = function($scope, $window, $filter, $http) {
     $scope.recurringIntervals = [
         //{value: RECURRING_INTERVAL_DAILY, label: 'täglich'},
         {value: RECURRING_INTERVAL_WEEKLY, label: 'wöchentlich'},
-        {value: RECURRING_INTERVAL_MONTHLY, label: 'monatlich'}
+        // {value: RECURRING_INTERVAL_MONTHLY, label: 'monatlich'}
     ];
 
     $scope.recurringIntervalsWeeks = [
@@ -176,7 +181,6 @@ module.exports = function($scope, $window, $filter, $http) {
     };
 
     $scope.init = function () {
-
         $scope.initialize();
     };
 
@@ -312,7 +316,8 @@ module.exports = function($scope, $window, $filter, $http) {
             .removeClass('recurringReservation-verein')
             .removeClass('recurringReservation-dutzendkarte')
             .removeAttr('data-reservation')
-            .removeAttr('data-toggle');
+            .removeAttr('data-toggle')
+            .text('');
 
         if (typeof $scope.reservation.date !== 'undefined') {
 
@@ -352,18 +357,26 @@ module.exports = function($scope, $window, $filter, $http) {
             var endTime = startTime + duration;
             var courtId = r.court_id;
             var reservationId = r.id;
+            var firstName = r.first_name;
+            var lastName = r.last_name;
 
             var reservation = {
                 startTime: startTime,
                 endTime: endTime,
                 courtId: courtId,
-                id: reservationId
+                id: reservationId,
+                first_name: firstName,
+                last_name: lastName
             };
 
             var myClassFinal = myClass;
 
             if (r.recurring) {
                 myClassFinal += ' recurringReservation-' + r.recurring_type;
+            }
+
+            if (! $scope.isAdmin) {
+                myClassFinal = 'hasReservation';
             }
 
             $scope.drawReservation(reservation, myClassFinal);
@@ -602,7 +615,12 @@ module.exports = function($scope, $window, $filter, $http) {
                 $scope.drawReservations();
                 $scope.drawTempReservation();
 
-                $scope.successMessage = 'Ihre Reservierungsanfrage wurde eingetragen.';
+                if ($scope.isAdmin) {
+                    $scope.successMessage = 'Ihre Reservierung wurde eingetragen.';
+                } else {
+                    $scope.successMessage = 'Ihre Anfrage wurde übermittelt. Wir werden uns bei Ihnen melden.';
+                }
+
 
             }).
             error(function (data) {
@@ -612,7 +630,7 @@ module.exports = function($scope, $window, $filter, $http) {
                 console.log("error");
                 console.log(data);
 
-                $scope.errorMessage = 'Fehler bei der Verarbeitung des Reservierungswunsches.';
+                $scope.errorMessage = 'Fehler bei der Verarbeitung. Bitte versuchen Sie es später noch einmal.';
 
                 $scope.sending = false;
             });

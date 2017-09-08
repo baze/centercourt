@@ -18,22 +18,22 @@ class CourtTableSeeder extends Seeder {
 		DB::table( 'courts' )->truncate();
 
 		Court::create( [
-			'name' => 'Halle 1',
+			'name' => 'Platz 1',
 			'type' => 'indoor'
 		] );
 
 		Court::create( [
-			'name' => 'Halle 2',
+			'name' => 'Platz 2',
 			'type' => 'indoor'
 		] );
 
 		Court::create( [
-			'name' => 'Halle 3',
+			'name' => 'Platz 3',
 			'type' => 'indoor'
 		] );
 
 		Court::create( [
-				'name' => 'Halle 4',
+				'name' => 'Halle2',
 				'type' => 'indoor'
 		] );
 	}

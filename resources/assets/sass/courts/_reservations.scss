@@ -1,8 +1,11 @@
 .reservationWrapper {
   position: relative;
+  min-height: 1rem;
+  text-align: center;
+  vertical-align: middle;
 
   span {
-    position: absolute;
+    vertical-align: middle;
     display: block;
     left: 0;
     top: 0;

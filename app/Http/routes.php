@@ -11,23 +11,28 @@
 |
 */
 
-Route::group( [ 'middleware' => 'auth' ], function () {
+Route::get( '/', 'ReservationsController@index' );
+Route::get( '/home', function () {
+	return redirect( '/' );
+} );
 
-	Route::get( '/', 'ReservationsController@index' );
-	Route::get( '/home', function () {
-		return redirect( '/' );
-	} );
-	Route::resource( 'holidays', 'HolidaysController', [ 'only' => [ 'index', 'store', 'destroy' ] ] );
+Route::get( '/auth/register', function () {
+	return redirect( '/auth/login' );
+} );
+
+Route::resource( 'prices', 'PricesController' );
+
+Route::group( [ 'middleware' => 'auth' ], function () {
 	Route::resource( 'reservations', 'ReservationsController', [ 'only' => [ 'destroy' ] ] );
+	Route::resource( 'holidays', 'HolidaysController', [ 'only' => [ 'index', 'store', 'destroy' ] ] );
+	Route::resource( 'posts', 'PostsController' );
 } );
 
 
 Route::group( [ 'prefix' => 'api' ], function () {
 
 	Route::group( [ 'prefix' => 'v1' ], function () {
-
 		Route::resource( 'reservations', 'ReservationsApiController', [ 'only' => [ 'index', 'store' ] ] );
-
 	} );
 
 } );

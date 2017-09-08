@@ -4,6 +4,7 @@ use App\Court;
 use App\Reservation;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Response;
 
@@ -16,7 +17,6 @@ class ReservationsApiController extends Controller {
 	 */
 	public function __construct()
 	{
-
 	}
 
 	/**
@@ -34,24 +34,30 @@ class ReservationsApiController extends Controller {
 	}
 
 	public function store() {
-		$reservation = Reservation::create(Input::all());
 
-		// TODO: Use Events here.
+		if (Auth::guest()) {
+			$reservation = new Reservation( Input::all() );
 
-		$mailer = new \App\Mailers\ReservationMailer();
-		$mailer->notifyAboutReservation($reservation);
+			$mailer = new \App\Mailers\ReservationMailer();
+			$mailer->notifyAboutReservation( $reservation );
 
-		if ($reservation->recurring) {
+		} else {
+			$reservation = Reservation::create( Input::all() );
 
-			$reservations = new Collection();
-			$reservations->add( $reservation );
+			if ( $reservation->recurring ) {
 
-			$reservations = Reservation::calculate( $reservations );
+				$reservations = new Collection();
+				$reservations->add( $reservation );
 
-			return response()->json( $reservations );
+				$reservations = Reservation::calculate( $reservations );
+
+				return response()->json( $reservations );
+			}
+
+			return response()->json( $reservation );
 		}
 
-		return response()->json($reservation);
+		return null;
 	}
 
 }

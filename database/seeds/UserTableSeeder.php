@@ -24,8 +24,8 @@ class UserTableSeeder extends Seeder {
 		] );
 
 		User::create( [
-				'name'     => 'Yvonne Scheer',
-				'email'    => 'scheer@euw.de',
+				'name'     => 'Yvonne Brandt',
+				'email'    => 'brandt@euw.de',
 				'password' => Hash::make( 'f!7tRaba' )
 		] );
 
@@ -48,10 +48,16 @@ class UserTableSeeder extends Seeder {
 		] );
 
 		User::create( [
-				'name'     => 'Jörg Walther',
-				'email'    => 'walther.joerg@gmx.de',
-				'password' => Hash::make( 'hJ4-dAX-8BD-fYQ' )
+			'name'     => 'Klaus Dieter Endler',
+			'email'    => 'klausdieter6130@yahoo.com',
+			'password' => Hash::make( 'RDK-X3U-8ve-o6e' )
 		] );
+
+//		User::create( [
+//				'name'     => 'Jörg Walther',
+//				'email'    => 'walther.joerg@gmx.de',
+//				'password' => Hash::make( 'hJ4-dAX-8BD-fYQ' )
+//		] );
 
 	}
 

@@ -4,7 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no">
-    <title>CenterCourt Bad Ems Reservierungsanfrage</title>
+    <title>{{ $pageTitle or "Home" }} | CenterCourt Bad Ems</title>
+
+    @include('_partials._analytics')
 
     {!! HTML::style('/css/main.css') !!}
 
@@ -26,21 +28,25 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ url('/') }}">CenterCourt Bad Ems</a>
+            <a class="navbar-brand" href="{{ url('http://www.centercourt-badems.de') }}">CenterCourt Bad Ems</a>
         </div>
 
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
-                @if ( ! Auth::guest())
                 <li><a href="{{ url('/') }}">Reservierungen</a></li>
+
+                @if ( ! Auth::guest())
                 <li><a href="{{ url('/holidays') }}">Ferienzeiten</a></li>
+                <li><a href="{{ url('/posts') }}">Nachrichten</a></li>
                 @endif
+
+                <li><a href="{{ url('/prices') }}">Preise</a></li>
             </ul>
 
             <ul class="nav navbar-nav navbar-right">
                 @if (Auth::guest())
                     <li><a href="{{ url('/auth/login') }}">Login</a></li>
-                    <li><a href="{{ url('/auth/register') }}">Register</a></li>
+                    {{--<li><a href="{{ url('/auth/register') }}">Register</a></li>--}}
                 @else
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button"

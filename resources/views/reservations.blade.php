@@ -9,7 +9,7 @@
 
                     <div class="panel-body">
 
-                        @if( $detect->isMobile())
+                        @if( $detect->isMobile() && ! $detect->isTablet() )
                             @include('_partials._reservation._mobile')
                         @else
                             @include('_partials._reservation._desktop')

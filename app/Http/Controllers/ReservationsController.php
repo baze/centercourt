@@ -5,6 +5,8 @@ use App\Holiday;
 use App\Reservation;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\View;
 
 class ReservationsController extends Controller {
 
@@ -16,7 +18,8 @@ class ReservationsController extends Controller {
 	 */
 	public function __construct()
 	{
-
+		parent::__construct();
+		View::share( 'pageTitle', 'Reservierungen' );
 	}
 
 	/**
@@ -35,7 +38,13 @@ class ReservationsController extends Controller {
 		$timeSpan = $maxTime - $minTime;
 
 		$minDate = Carbon::now();
-		$maxDate = Carbon::now()->addMonths(2);
+
+		if (Auth::check()) {
+			$maxDate = Carbon::now()->addMonths( 12 );
+		} else {
+			$maxDate = Carbon::now()->addMonths( 2 );
+		}
+
 
 		if (\Auth::check()) {
 			$email = \Auth::user()->email;
@@ -67,7 +76,6 @@ class ReservationsController extends Controller {
 		$reservation = Reservation::find( $id );
 
 		if ( $reservation ) {
-//		if ( ! $reservation->recurring ) {
 			$reservation->delete();
 		}
 

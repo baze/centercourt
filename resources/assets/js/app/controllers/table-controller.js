@@ -3,14 +3,15 @@
 var $ = require('jquery');
 var moment = require('moment');
 require('bootstrap-datepicker');
+require('bootstrap-datepicker-locale-de');
 
-module.exports = function ($scope, $controller, $window, $filter) {
+module.exports = function ($scope, $controller, $window, $filter, $compile) {
 
     $.extend(this, $controller('AppController', {$scope: $scope}));
 
-    $scope.init = function() {
-        $scope.initialize();
-    };
+    // $scope.init = function() {
+    //     $scope.initialize();
+    // };
 
     $scope.drawReservation = function (reservation, myClass) {
         var rows = $('tr[data-time="' + reservation.startTime + '"]').nextUntil('tr[data-time="' + reservation.endTime + '"]').andSelf();
@@ -18,6 +19,10 @@ module.exports = function ($scope, $controller, $window, $filter) {
         var elems = rows.find('td[data-court-id="' + reservation.courtId + '"] span');
 
         elems.addClass(myClass);
+
+        if ($scope.isAdmin && reservation.id) {
+            elems.text(reservation.first_name);
+        }
 
         if (reservation.id) {
             elems.attr('data-reservation', reservation.id);
@@ -31,7 +36,7 @@ module.exports = function ($scope, $controller, $window, $filter) {
         elems.addClass(myClass);
     };
 
-    $scope.getPopoverContent = function (reservation, action, csrf_token) {
+    $scope.getPopoverContent = function (reservation) {
         var content = "<dl>";
         content += "<dt>Name</dt><dd>" + reservation.first_name;
 
@@ -41,15 +46,22 @@ module.exports = function ($scope, $controller, $window, $filter) {
 
         content += "<dt>Start</dt><dd>" + $filter('formatTime')(reservation.start_time) + "</dd>";
         content += "<dt>Dauer</dt><dd>" + $filter('formatHours')(reservation.duration) + "</dd>";
-        //content += "<dt>E-Mail</dt><dd>" + reservation.email + "</dd>";
-        //content += "<dt>Telefon</dt><dd>" + reservation.phone + "</dd>";
+
+        if (reservation.email) {
+            content += "<dt>E-Mail</dt><dd>" + reservation.email + "</dd>";
+        }
+
+        if (reservation.phone) {
+            content += "<dt>Telefon</dt><dd>" + reservation.phone + "</dd>";
+        }
 
         if (reservation.recurring == 1) {
 
             var recurringInterval = $filter('filter')($scope.recurringIntervals, {value: reservation.recurring_interval})[0];
             var recurringType = $filter('filter')($scope.recurringTypes, {value: reservation.recurring_type})[0];
 
-            content += "<dt>Wiederholung</dt><dd>";
+            content += "<dt>Wiederholung</dt>";
+            content += "<dd>";
             content += recurringInterval.label;
 
             if (recurringInterval.value == 'weekly') {
@@ -64,24 +76,33 @@ module.exports = function ($scope, $controller, $window, $filter) {
 
         content += "</dl>";
         content += "<hr>";
-        content += "<small>Erstellt am: " + moment(reservation.created_at).format('DD.MM.YYYY') + "<br>" +
-            "ID: " + reservation.reservation_number +
-            "</small>";
+        content += "<small>";
+        content += "Erstellt am: " + moment(reservation.created_at).format('DD.MM.YYYY') + "<br>";
+        content += "Erstellt von: " + reservation.user_id + "<br>";
+        content += "ID: " + reservation.reservation_number;
+        content += "</small>";
 
         content += "<hr>";
 
-        action = action + "/" + reservation.id;
-
-        content += "<form action='" + action + "' method='POST'>";
-        content += '<input name="_method" type="hidden" value="DELETE">';
-        content += '<input type="hidden" name="_token" value="'+ csrf_token + '">';
-        content += "<input type='submit' value='Löschen' class='btn btn-danger btn-xs btn-block'>";
-        content += "</form>";
+        content += '<button type="button" class="btn btn-danger btn-xs btn-block btn-lg" data-toggle="modal" data-target="#myModal">';
+        content += 'Löschen';
+        content += '</button>';
 
         return content;
     };
 
-    $scope.showReservationInfoPopover = function ($event, action, csrf_token) {
+    $scope.highlightReservation = function($event) {
+        var reservationId = $($event.target).attr('data-reservation');
+
+        $('span[data-reservation]').removeAttr('data-highlight');
+
+        if (reservationId) {
+
+            $('span[data-reservation=' + reservationId + ']').attr('data-highlight', true);
+        }
+    };
+
+    $scope.showReservationInfoPopover = function ($event, action) {
 
         if (!$scope.mouseIsCurrentlyClicked) {
 
@@ -102,9 +123,12 @@ module.exports = function ($scope, $controller, $window, $filter) {
 
                 var reservation = $scope.filterReservations($window.myApp.reservations, filter)[0];
 
-                var content = $scope.getPopoverContent(reservation, action, csrf_token);
+                $scope.reservationForDeletion = reservation;
+                $scope.reservationDeleteAction = action + '/' + reservation.id;
 
-                var popover = $($event.target).attr('data-content', content).data('bs.popover');
+                var content = $scope.getPopoverContent(reservation);
+
+                var popover = $($event.target).attr('data-content', content.toString()).data('bs.popover');
                 popover.setContent();
                 popover.$tip.addClass(popover.options.placement);
 

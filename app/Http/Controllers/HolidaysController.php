@@ -3,6 +3,7 @@
 use App\Holiday;
 use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\View;
 
 class HolidaysController extends Controller {
 
@@ -14,7 +15,8 @@ class HolidaysController extends Controller {
 	 */
 	public function __construct()
 	{
-
+		parent::__construct();
+		View::share( 'pageTitle', 'Ferienzeiten' );
 	}
 
 	/**
@@ -31,6 +33,8 @@ class HolidaysController extends Controller {
 	}
 
 	public function create(  ) {
+		View::share( 'pageTitle', 'Ferienzeiten erstellen' );
+
 		return view( 'holidays.create' );
 	}
 

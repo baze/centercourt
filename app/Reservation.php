@@ -3,6 +3,7 @@
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Str;
 
 class Reservation extends Model {
@@ -16,6 +17,10 @@ class Reservation extends Model {
 
 		static::creating( function ( $reservation ) {
 			$reservation->reservation_number = Str::random(6);
+		} );
+
+		static::creating( function ( $item ) {
+			$item->user()->associate( Auth::user() );
 		} );
 	}
 
@@ -45,7 +50,7 @@ class Reservation extends Model {
 		return $nth;
 	}
 
-	private static function calculate( $reservations ) {
+	public static function calculate( $reservations ) {
 
 		foreach ( $reservations as $reservation ) {
 
@@ -104,6 +109,14 @@ class Reservation extends Model {
 		}
 
 		return $reservations;
+	}
+
+	public function court() {
+		return $this->belongsTo( 'App\\Court', 'court_id' );
+	}
+
+	public function user() {
+		return $this->belongsTo( 'App\\User', 'user_id' );
 	}
 
 }

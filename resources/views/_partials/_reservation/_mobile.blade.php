@@ -1,4 +1,11 @@
-<div class="row" data-ng-controller="SliderController" data-ng-init="init()">
+<div class="row"
+     data-ng-controller="SliderController"
+     @if(Auth::check())
+     data-ng-init="init(isAdmin=true)"
+     @else
+     data-ng-init="init()"
+        @endif
+>
     <div class="col-sm-8">
 
         <div class="flexslider courts">
@@ -33,45 +40,34 @@
                max="{{ $maxDate->format('Y-m-d') }}"
                data-ng-model="reservation.date" />--}}
 
-        @if(Auth::check())
-            <div class="well">
-                <div class="datetimepicker-startDate"></div>
-            </div>
-        @endif
+        <div class="well">
+            <div class="datetimepicker-startDate"></div>
+        </div>
 
-        @if(Auth::check())
-            <div class="well">
-                <div class="row">
-                    <div class="col-sm-6">
-                        @include('_partials._startTime')
-                    </div>
-                    <div class="col-sm-6">
-                        @include('_partials._duration')
-                    </div>
+        <div class="well">
+            <div class="row">
+                <div class="col-sm-6">
+                    @include('_partials._startTime')
                 </div>
-
-                @include('_partials._recurring')
+                <div class="col-sm-6">
+                    @include('_partials._duration')
+                </div>
             </div>
 
-        @endif
+            @include('_partials._recurring')
+        </div>
 
     </div>
 
     <div class="col-sm-4">
 
-        @if(Auth::guest())
-            <div class="well">
-                <div class="datetimepicker-startDate"></div>
-            </div>
-        @endif
+        @include('_partials._reservation._alert')
 
-        @if(Auth::check())
-            @include('_partials._reservation._alert')
+        <div class="well">
+            @include('_partials._reservation._form')
+        </div>
 
-            <div class="well">
-                @include('_partials._reservation._form')
-            </div>
-        @endif
+        @include('_partials._reservation._conditions')
 
     </div>
 </div>
